@@ -772,8 +772,8 @@ BlinkStick.prototype.getColorString = function (index, callback) {
  * @param {Number} location Address to seek the data.
  * @param {Function} callback Callback to which to pass the value.
  */
-function getInfoBlock (device, location, callback) {
-    getFeatureReport(location, 33, function (err, buffer) {
+BlinkStick.prototype.getInfoBlock = function (device, location, callback) {
+    this.getFeatureReport(location, 33, function (err, buffer) {
         if (typeof(err) !== 'undefined')
         {
             callback(err);
@@ -820,7 +820,7 @@ function opt(options, name, defaultValue){
  * @param {String} data The value to push to the device. Should be <= 32 chars.
  * @param {Function} callback Callback to which to pass the value.
  */
-function setInfoBlock (device, location, data, callback) {
+BlinkStick.prototype.setInfoBlock = function  (device, location, data, callback) {
     var i,
     l = Math.min(data.length, 33),
     buffer = new Buffer(33);
@@ -829,7 +829,7 @@ function setInfoBlock (device, location, data, callback) {
     for (i = 0; i < l; i++) buffer[i + 1] = data.charCodeAt(i);
     for (i = l; i < 33; i++) buffer[i + 1] = 0;
 
-    setFeatureReport(location, buffer, callback);
+    this.setFeatureReport(location, buffer, callback);
 }
 
 
@@ -852,7 +852,7 @@ function setInfoBlock (device, location, data, callback) {
  * @param {Function} callback Callback to which to pass the value.
  */
 BlinkStick.prototype.getInfoBlock1 = function (callback) {
-    getInfoBlock(this.device, 0x0002, callback);
+    this.getInfoBlock(this.device, 0x0002, callback);
 };
 
 
@@ -873,7 +873,7 @@ BlinkStick.prototype.getInfoBlock1 = function (callback) {
  * @param {Function} callback Callback to which to pass the value.
  */
 BlinkStick.prototype.getInfoBlock2 = function (callback) {
-    getInfoBlock(this.device, 0x0003, callback);
+    this.getInfoBlock(this.device, 0x0003, callback);
 };
 
 
@@ -894,7 +894,7 @@ BlinkStick.prototype.getInfoBlock2 = function (callback) {
  * @param {Function} callback Callback when the operation completes
  */
 BlinkStick.prototype.setInfoBlock1 = function (data, callback) {
-    setInfoBlock(this.device, 0x0002, data, callback);
+    this.setInfoBlock(this.device, 0x0002, data, callback);
 };
 
 
@@ -915,7 +915,7 @@ BlinkStick.prototype.setInfoBlock1 = function (data, callback) {
  * @param {Function} callback Callback when the operation completes
  */
 BlinkStick.prototype.setInfoBlock2 = function (data, callback) {
-    setInfoBlock(this.device, 0x0003, data, callback);
+    this.setInfoBlock(this.device, 0x0003, data, callback);
 };
 
 
